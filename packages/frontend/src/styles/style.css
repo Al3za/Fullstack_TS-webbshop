@@ -1,0 +1,41 @@
+#navBar {
+    display: flex;
+    border-bottom: 1px solid black;
+    height: 10vh;
+}
+
+#content {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    /* border-left: 1px solid gray; */
+    /* border-right: 1px solid gray; */
+    min-height: 89.9vh;
+}
+
+.productDiv {
+    height: 200px;
+    border: 1px solid rgb(203, 202, 202);
+    display: flex;
+}
+
+.productInfo {
+    margin-left: 6px;
+}
+
+.productDiv h3 {
+    /* display: inline-block; */
+}
+
+.productDiv p{
+    /* display: inline-block;
+    /* width: 40px; */
+    /* margin-right: 0; */
+}
+
+.productImg {
+    /* display: inline-block; */
+    height: 200px;
+    /* position: relative; */
+}
