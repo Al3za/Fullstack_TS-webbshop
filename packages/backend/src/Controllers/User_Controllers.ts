@@ -1,6 +1,9 @@
-import express, { Router, Request, Response, response } from "express";
-import { user_interface } from "@webbshop-app/shared";
+
+import express, { Router, Request, Response } from "express";
+import { user_interface } from '@webbshop-app/shared';
+import { saveUser } from "../Models/userModel";
 import { JwtReq, registerUser, userVerify } from "../services/userVerify";
+
 
 const User_Controller = express.Router();
 

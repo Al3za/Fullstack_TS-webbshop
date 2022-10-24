@@ -1,0 +1,62 @@
+[
+    {
+      "id": 1,
+      "name": "Nike Shoes",
+      "description": "Nike Air Max is a line of shoes produced by Nike, Inc., with the first model released in 1987. Air Max shoes are identified by their midsoles incorporating flexible urethane pouches filled with pressurized gas, visible from the exterior of the shoe and intended to provide cushioning to the underfoot.",
+      "kategori":"Fashion",
+      "weight":"50 g",
+      "price": 10.99,
+      "manufacturer": "Made in Bangladesh",
+      "imgUrl": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+    },
+    {
+      "id": 2,
+      "name": "Computer",
+      "description": "Apple MacBook Pro is a macOS laptop with a 13.30-inch display that has a resolution of 2560x1600 pixels. It is powered by a Core i5 processor and it comes with 12GB of RAM. The Apple MacBook Pro packs 512GB of SSD storage.",
+      "kategori":"technology",
+      "weight":"1 kg",
+      "price": 1199,
+      "manufacturer": "Made in China",
+      "imgUrl": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
+    },
+    {
+      "id": 3,
+      "name": "Sunglasses",
+      "description": "Sunglasses are bold, stylish and made for many different tastes and occasions. The ladies sunglasses are instantly recognisable by the iconic Gucci emblem of the 'double G' embossed somewhere on the frames. Gold is a staple colour for Gucci, and this is shown throughout their range.",
+      "kategori":"Fashion",
+      "weight":"20 g",
+      "manufacturer": "Made in Japan",
+      "price": 1.05,
+      "imgUrl": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+    },
+    {
+      "id": 4,
+      "name": "Camera",
+      "description": "The Canon EOS M50 (EOS Kiss M in Asia) is an entry-level mirrorless camera that features an electronic viewfinder, fully articulating touchscreen, single control dial and a 24MP APS-C sensor – the same used by its M-series siblings.",
+      "kategori":"technology",
+      "weight":"70 g",
+      "manufacturer": "Made in China",
+      "price": 14000,
+      "imgUrl": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    },
+    {
+      "id": 5,
+      "name": "Smartwatch",
+      "description": "A smartwatch is a wearable computing device that closely resembles a wristwatch or other time-keeping device. In addition to telling time, many smartwatches are Bluetooth-capable. The watch becomes a wireless Bluetooth adaptor capable of extending the capabilities of the wearer's smartphone to the watch.",
+      "kategori":"technology",
+      "weight":"20 g",
+      "manufacturer": "Made in China",
+      "price": 14000,
+      "imgUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80"
+    },
+    {
+      "id": 6,
+      "name": "Book",
+      "description": "Rich Dad Poor Dad is Robert's story of growing up with two dads — his real father and the father of his best friend, his rich dad — and the ways in which both men shaped his thoughts about money and investing.",
+      "kategori":"Learning",
+      "weight":"30 g",
+      "manufacturer": "Made in EEUU",
+      "price": 14000,
+      "imgUrl": "https://images.unsplash.com/photo-1521123845560-14093637aa7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    }
+  ]
