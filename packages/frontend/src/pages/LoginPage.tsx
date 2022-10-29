@@ -27,7 +27,10 @@ export default function LoginPage() {
     }
 
     setRes(send.data);
+    const sen = await axios.get("/CreateUser/sale");
   };
+
+  const jwtToken = localStorage.getItem("jwt");
 
   return (
     <div>
@@ -47,7 +50,17 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={(e) => sendToBackend()}> login </button>
-        <button onClick={(e) => navigate("/")}>back to register</button>
+        {jwtToken ? (
+          <button onClick={(e) => navigate("/")}>update user</button>
+        ) : (
+          ""
+        )}
+        <button
+          onClick={(e) => [localStorage.removeItem("jwt"), navigate("/")]}
+        >
+          {" "}
+          create new user{" "}
+        </button>
       </div>
       <> {res}</>
     </div>

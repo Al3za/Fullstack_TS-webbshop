@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import storeItems from "../data/items.json";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
 // import { ProductSearch } from "../components/ProductSearch";
 
+function setItem(item: number) {
+  const findItemId = storeItems.find((search) => search.id === item);
+  console.log(findItemId?.name);
+  // return console.log(item, typeof item);
+}
+
 export default function ProductsPage() {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
+  const [enableButton, SetEnableButton] = useState<boolean>(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      SetEnableButton(false);
+    }
+  }, []);
+
   return (
     <>
       <h1>Products Page</h1>
@@ -30,6 +45,13 @@ export default function ProductsPage() {
                 <Link to={`/details/${item.id}`}>
                   <StoreItem {...item} />
                 </Link>
+                <Button
+                  disabled={enableButton}
+                  style={{ width: "100%" }}
+                  onClick={(e) => setItem(item.id)}
+                >
+                  add to cart
+                </Button>
               </Col>
             ))}
         </Row>

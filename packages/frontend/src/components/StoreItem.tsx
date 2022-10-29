@@ -1,5 +1,5 @@
 import { Button, Card } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 
 export interface StoreItemProps {
   id: number;
@@ -11,7 +11,12 @@ export interface StoreItemProps {
   price: number;
   imgUrl: string;
 }
+
+const jwtToken = localStorage.getItem("jwt");
+
 export function StoreItem({ name, price, imgUrl }: StoreItemProps) {
+  //const [buttonState, useButtonState] = useState<boolean>(true);
+
   return (
     <Card>
       StoreItem
@@ -26,7 +31,7 @@ export function StoreItem({ name, price, imgUrl }: StoreItemProps) {
           <span className="fs-2">{name}</span>
           <span className="ms-2 text-muted">Price : ${price}</span>
         </Card.Title>
-        <Button>Add To Cart</Button>
+        {/* <Button disabled={true}>Add To Cart</Button> */}
       </Card.Body>
     </Card>
   );
