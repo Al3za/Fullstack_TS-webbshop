@@ -15,8 +15,9 @@ export interface StoreItemProps {
 
 export function ProductDetail() {
   const { id } = useParams();
-  const item = storeItems.find((item) => item.id == id);
-  console.warn(item);
+  console.log(typeof id);
+  const item = storeItems.find((item) => item.id === Number(id));
+  console.log(item);
 
   return (
     <Card>

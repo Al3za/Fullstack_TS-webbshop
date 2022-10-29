@@ -37,6 +37,7 @@ export default function RegisterPage() {
     });
 
     const getData = send.data;
+    console.log(getData);
     setRes(getData);
     if (typeof getData === "boolean") {
       navigate("/login");
@@ -90,7 +91,7 @@ export default function RegisterPage() {
         {!checkToken ? (
           <button onClick={(e) => sendToBackend()}> send </button>
         ) : (
-          <button onClick={(e) => sendToBackend()}> update register </button>
+          <button onClick={(e) => sendToBackend()}> update user </button>
         )}
       </div>
 
@@ -98,7 +99,9 @@ export default function RegisterPage() {
         <>{res} </>
       </div>
 
-      <div className="buttonToLogin"></div>
+      <div className="buttonToLogin">
+        <button onClick={(e) => navigate("/login")}> go to login </button>
+      </div>
     </div>
   );
 }
