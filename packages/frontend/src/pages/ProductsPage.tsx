@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import storeItems from "../data/items.json";
 import { Col, Row, Button } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
-// import { ProductSearch } from "../components/ProductSearch";
+//import AddToCard from "./AddToCard";
+import axios from "axios";
+import { cartProduct } from "@webbshop-app/shared";
 
-function setItem(item: number) {
-  const findItemId = storeItems.find((search) => search.id === item);
-  console.log(findItemId?.name);
-  // return console.log(item, typeof item);
-}
+axios.defaults.baseURL = "http://localhost:4000";
+
+const setItem = async (itemID: number): Promise<void> => {
+  //AddToCard(items);
+  const findItemId = storeItems.find((search) => search.id === itemID);
+  const productName = findItemId?.name;
+  const productPrice = findItemId?.price;
+
+  await axios.post<cartProduct>("/addToCartProducts", {
+    productName,
+    productPrice,
+  });
+};
 
 export default function ProductsPage() {
   const [search, setSearch] = useState<string>("");

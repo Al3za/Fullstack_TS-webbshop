@@ -4,6 +4,7 @@ import User_Controller, { UserLogin } from "./Controllers/User_Controllers";
 import { setUpMongoDb } from "./Models/userModel";
 import { autenticateToken } from "./services/userVerify";
 //import itemRouter from "./Controllers/itemTest";
+import addToCardProduct from "./Controllers/addToCard";
 
 const app: Application = express();
 const mongoUrl: string =
@@ -11,11 +12,10 @@ const mongoUrl: string =
 
 app.use(cors());
 app.use(json());
-
 app.post("/login", UserLogin);
 app.use(autenticateToken);
 app.use("/CreateUser", User_Controller);
-//app.use("/testToken", itemRouter);
+app.use("/addToCartProducts", addToCardProduct);
 
 const port: number = parseInt(process.env.SERVER_PORT || "4000");
 
