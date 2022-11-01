@@ -11,9 +11,9 @@ const mongoUrl: string =
 
 app.use(cors());
 app.use(json());
-app.use(autenticateToken);
-app.post("/login", UserLogin);
 
+app.post("/login", UserLogin);
+app.use(autenticateToken);
 app.use("/CreateUser", User_Controller);
 //app.use("/testToken", itemRouter);
 

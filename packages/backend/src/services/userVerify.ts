@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "hgvdfhbsadfvasdfjvdf";
 
-type tokenPayload = {
+export type tokenPayload = {
   user: string;
   userId: string;
 };
@@ -49,21 +49,16 @@ export const autenticateToken = async (
     try {
       const decoded = jwt.verify(token, JWT_SECRET) as tokenPayload;
       req.jsonToken = decoded;
-      // console.log(req.jsonToken.userId);
-      // console.log(decoded);
     } catch {
-      //res.sendStatus(403); // bad token
+      return res.sendStatus(403);
     }
-  } else {
-    //res.sendStatus(401); //not authorized
   }
-
   next();
 };
 
 export const registerUser = async (
   userItem: user_interface,
-  req: JwtReq<any>
+  req: JwtReq<user_interface>
 ) => {
   const body = userItem;
   if (req.jsonToken) {
@@ -76,9 +71,7 @@ export const registerUser = async (
     } catch {
       return "error updating";
     }
-  }
-
-  if (
+  } else if (
     body.username != "" &&
     body.password != "" &&
     body.mail != "" &&
