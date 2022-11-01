@@ -9,7 +9,9 @@ useEffect(() => {
 }, [])
 
 let [sum, setSum] = useState<number>(0)
+let [shipping, setShipping] = useState<number>(25)
 
+// REPLACE WITH DATA FROM DATABASE 
 let array: any = [
   {
     img: "https://images.unsplash.com/photo-1585849540400-24544b4cc98e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGtpd2l8ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
@@ -25,50 +27,52 @@ let array: any = [
   }
 ]
 
-// console.log(array[0].price)
-
 function sumArray() {
   let summary = 0
   for (let i = 0; i < array.length; i += 1) {
     summary += array[i].price;
-    // console.log(summary)
   }
   
   return (setSum(summary))
 }
 
-// array = false
 
-console.log(sum)
-// console.log(sum)
+
   return (
     <>
       <div id="navBar">
         <Link to="/products">Product Page</Link>
+        <Link to="/reciepts">Reciepts</Link> 
         <h1>Shopping Cart</h1>
         <button>Log out</button>
       </div>
 
-      <div id="content">
+
         {array ? (
         <>
-          <h2>Total price: {sum}kr</h2>
-          {array.map((item: any) => {
-            return (
-            <div key={item.name} className="productDiv"> 
-              <img src={item.img} alt={item.name} className="productImg"/>
-              <div className="productInfo">
-                <h3>{item.name}</h3>
-                <p>{item.price}kr</p>
+          <div id="products">
+            {array.map((item: any) => {
+              return (
+              <div key={item.name} className="productDiv"> 
+                <img src={item.img} alt={item.name} className="productImg"/>
+                <div className="productInfo">
+                  <h3>{item.name}</h3>
+                  <p>{item.price}kr</p>
+                </div>
               </div>
-            </div>
-            )
-          })}
+              )
+            })}
+          </div>
+          <div id="orderInfo">
+            <h4>Product price: {sum}kr</h4>
+            <h4>Shipping: {shipping}kr</h4>
+            <u><h4>Total price: {sum + shipping}kr</h4></u>
+            <Link to="/reciept"><button>Pay</button></Link>
+          </div>
         </>
 ):(
-          <div>Hej</div>
+          <div>Seems like you got no products added yet</div>
         )}
-      </div>
     </>
   )
 }

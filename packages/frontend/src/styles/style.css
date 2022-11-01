@@ -4,7 +4,7 @@
     height: 10vh;
 }
 
-#content {
+#products {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -14,11 +14,19 @@
     min-height: 89.9vh;
 }
 
+#orderInfo {
+    width: 20%;
+    position: absolute;
+    right: 0;
+}
+
 .productDiv {
     height: 200px;
     border: 1px solid rgb(203, 202, 202);
     display: flex;
+    overflow-y: auto;
 }
+
 
 .productInfo {
     margin-left: 6px;
@@ -36,6 +44,6 @@
 
 .productImg {
     /* display: inline-block; */
-    height: 200px;
+    height: 198px;
     /* position: relative; */
 }
