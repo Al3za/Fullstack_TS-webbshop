@@ -9,9 +9,15 @@ const productsCart = new Schema({
 
 const productModel = model<cartProduct>("modelProduct", productsCart);
 
+export const loadAllCartProd = async (): Promise<cartProduct[]> => {
+  const loadAll = await productModel.find().exec();
+  return loadAll;
+};
+
 export const saveCartProduct = async (cartItem: cartProduct) => {
   const newProductCart = new productModel(cartItem);
   const saveCartProduct = await newProductCart.save();
+
   if (!saveCartProduct) {
     throw new Error("ingen product");
   }
