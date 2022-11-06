@@ -20,7 +20,7 @@ addToCardProduct.get(
   "/",
   async (req: JwtReq<cartProduct>, res: Response<cartProduct[]>) => {
     if (req.jsonToken) {
-      res.send(await loadAllCartProd());
+      res.send(await loadAllCartProd(req.jsonToken.user));
     }
   }
 );

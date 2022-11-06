@@ -9,8 +9,10 @@ const productsCart = new Schema({
 
 const productModel = model<cartProduct>("modelProduct", productsCart);
 
-export const loadAllCartProd = async (): Promise<cartProduct[]> => {
-  const loadAll = await productModel.find().exec();
+export const loadAllCartProd = async (
+  username: any
+): Promise<cartProduct[]> => {
+  const loadAll = await productModel.find({ username }).exec();
   return loadAll;
 };
 
