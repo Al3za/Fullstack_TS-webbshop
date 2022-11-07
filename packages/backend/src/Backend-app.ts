@@ -3,7 +3,6 @@ import cors from "cors";
 import User_Controller, { UserLogin } from "./Controllers/User_Controllers";
 import { setUpMongoDb } from "./Models/userModel";
 import { autenticateToken } from "./services/userVerify";
-//import itemRouter from "./Controllers/itemTest";
 import addToCardProduct from "./Controllers/addToCard";
 
 const app: Application = express();
@@ -16,6 +15,8 @@ app.post("/login", UserLogin);
 app.use(autenticateToken);
 app.use("/CreateUser", User_Controller);
 app.use("/addToCartProducts", addToCardProduct);
+
+export const checkUrl = mongoUrl;
 
 const port: number = parseInt(process.env.SERVER_PORT || "4000");
 
