@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { cartProduct } from "@webbshop-app/shared";
 //import GetCartProducts from "./GetCartProducts";
 import storeItems from "../data/items.json";
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000";
+
+//if(Headers statusbar===403)
 
 export default function ShoppingCart() {
   const [cartProduct, setCartProduct] = useState<cartProduct[]>([]);
