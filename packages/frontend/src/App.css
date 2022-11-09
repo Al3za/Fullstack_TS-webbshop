@@ -1,5 +1,10 @@
 .App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   text-align: center;
+  min-height: 100vh;
+
 }
 
 .App-logo {
@@ -12,7 +17,92 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.RegisterPage{
+  padding-bottom: 20%;
+  padding-top: 20%;
+  background-color: rgb(243, 218, 0);
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.Register{
+  padding-left: 45%;
+  margin-top: 5%;
+}
+.RegisterTitle{
+  text-align: center;
+}
+.buttonToLogin{
+  padding-left: 43%;
+  margin-top: 5%;
+ 
+}
+.LoginTitle{
+  text-align: center;
+}
+.login{
+  padding-left: 30%;
+  margin-top: 5%;
+  padding-bottom: 20%;
 
+  
+}
+.LoginPage{
+  padding-bottom: 20%;
+  padding-top: 20%;
+  background-color: rgb(243, 218, 0);
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.webbshopTitle{
+  text-align: center;
+  padding-top: 2%;
+}
+.ProductsTitle{
+  text-align: center;
+  padding-top: 2%;
+}
+.search{
+  padding-left: 20%;
+  padding-right: 20%;
+}
+.section{
+  margin-left: 2%;
+  margin-right: 2%;
+
+}
+.carrito{
+  margin-left: 45%;
+  margin-bottom: 1%;
+}
+.body{
+  background-color: rgba(244, 236, 0, 0.912);
+}
+.CartTitle{
+  text-align: center;
+  padding-top: 10%;
+  margin-bottom: 20%;
+
+}
+.CartBoddy{
+  background-color: rgba(244, 236, 0, 0.688);
+}
+.title{
+  text-align: center;
+  margin-top: 5%;
+  font-family: broadway;
+  font-weight: 900;
+  text-decoration: underline;
+}
+.information{
+  font-weight: 900;
+}
+.shipping{
+  text-align: center;
+  font-size: 20px;
+  font-family: broadway;
+  font-weight: 900;
+
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

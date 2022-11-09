@@ -2,5 +2,7 @@ export interface cartProduct {
   productName: string;
   productPrice: number;
   userName?: string;
-  antal?: number;
+  antal: number;
+  id: number;
+  imgUrl: string;
 }

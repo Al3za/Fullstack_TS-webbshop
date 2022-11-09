@@ -10,6 +10,7 @@ export interface StoreItemProps {
   manufacturer: string;
   price: number;
   imgUrl: string;
+  amount: number;
 }
 
 const jwtToken = localStorage.getItem("jwt");
@@ -19,7 +20,6 @@ export function StoreItem({ name, price, imgUrl }: StoreItemProps) {
 
   return (
     <Card>
-      StoreItem
       <Card.Img
         variant="top"
         src={imgUrl}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { user_interface } from "@webbshop-app/shared";
+import "../App.css";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
@@ -33,29 +34,45 @@ export default function LoginPage() {
   const jwtToken = localStorage.getItem("jwt");
 
   return (
-    <div>
-      <h1>LoginPage</h1>
+    <div className="LoginPage">
+      <h1 className="LoginTitle">LoginPage</h1>
+      <form className="px-4 py-3">
+        <div className="form-group">
+          <label>username </label>
+          <input
+            className="form-control"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="example"
+          />
+        </div>
+        <div className="form-group">
+          <label>password </label>
+          <input
+            className="form-control"
+            type="text"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="******"
+          />
+        </div>
+      </form>
 
       <div className="login">
-        username{" "}
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        password{" "}
-        <input
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={(e) => sendToBackend()}> login </button>
+        <button className="btn btn-primary" onClick={(e) => sendToBackend()}>
+          {" "}
+          login{" "}
+        </button>
         {jwtToken ? (
-          <button onClick={(e) => navigate("/")}>update user</button>
+          <button className="btn btn-danger" onClick={(e) => navigate("/")}>
+            update user
+          </button>
         ) : (
           ""
         )}
         <button
+          className="btn btn-success"
           onClick={(e) => [localStorage.removeItem("jwt"), navigate("/")]}
         >
           {" "}
