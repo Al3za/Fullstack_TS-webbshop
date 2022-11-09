@@ -6,7 +6,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
-const GetCartProducts = async (props: any): Promise<cartProduct[]> => {
+const GetCartProducts = async (): Promise<cartProduct[]> => {
   const getCartProd = await axios.get("/addToCartProducts");
 
   const fik = (getJsonName: any) => {
