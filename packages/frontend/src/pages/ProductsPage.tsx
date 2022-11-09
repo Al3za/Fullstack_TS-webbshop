@@ -11,6 +11,7 @@ axios.defaults.baseURL = "http://localhost:4000";
 export default function ProductsPage() {
   const [search, setSearch] = useState<string>("");
   const [enableButton, SetEnableButton] = useState<boolean>(true);
+  const [test, setTest] = useState<string>("");
   //const navigate = useNavigate();
 
   const setItem = async (itemID: number): Promise<void> => {
@@ -22,7 +23,6 @@ export default function ProductsPage() {
       productName,
       productPrice,
     });
-    //navigate("/cart");
   };
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function ProductsPage() {
 
   return (
     <>
+      {test}
       <h1>Products Page</h1>
       <header>headers här</header>
       <input

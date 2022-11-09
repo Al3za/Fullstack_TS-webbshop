@@ -31,17 +31,21 @@ export const checkUser = async (
 
 export const User = model<user_interface>("user", userModel);
 
-export const saveUser = async (item: user_interface): Promise<void> => {
+export const saveUser = async (
+  item: user_interface
+): Promise<user_interface | string> => {
   const NewUser = new User(item);
   const SaveNewUser = await NewUser.save();
   if (!SaveNewUser) {
     throw new Error("ange giltig data");
   }
+  const userInfo = await User.findOne({ username: item.username });
+  console.log(userInfo);
+  return userInfo ? userInfo.username : "";
 };
 export const uppdateUser = async (update: user_interface) => {
   const { _id, mail, address, password, phoneNr, username } = update;
   const hashadPassword = await bcrypt.hash(password, 10);
-  console.log(update);
   const bodyUpdate = await User.updateOne(
     { _id: _id },
     {
@@ -52,10 +56,8 @@ export const uppdateUser = async (update: user_interface) => {
       password: hashadPassword,
     }
   );
-  console.log(bodyUpdate);
   if (!bodyUpdate) {
     throw new Error();
   }
-
-  //const findId = await User.updateOne({});
+  return username;
 };

@@ -7,9 +7,9 @@ const addToCardProduct = express.Router();
 addToCardProduct.post("/", async (req: JwtReq<cartProduct>, res: Response) => {
   if (req.jsonToken) {
     req.body.username = req.jsonToken.user;
+    req.body.adress = req.jsonToken.UserAdress;
     try {
       saveCartProduct(req.body);
-      //res.send(await loadAllCartProd());
     } catch {
       console.log("error saving product cart");
     }

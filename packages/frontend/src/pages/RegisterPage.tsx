@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { user_interface } from "@webbshop-app/shared";
 import axios from "axios";
@@ -23,12 +23,11 @@ export default function RegisterPage() {
   const [address, setAddress] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [res, setRes] = useState<string | user_interface>("");
-  //const [enableButton, setEnableButton] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
   const sendToBackend = async (): Promise<void> => {
-    const send = await axios.post<user_interface>("/CreateUser", {
+    const send = await axios.post<user_interface | string>("/CreateUser", {
       username,
       mail,
       phoneNr,
@@ -37,13 +36,11 @@ export default function RegisterPage() {
     });
 
     const getData = send.data;
-    console.log(getData);
-    setRes(getData);
-    if (typeof getData === "boolean") {
+
+    if (getData === username) {
       navigate("/login");
-      // setEnableButton(false);
-      // setRes("");
     }
+    setRes(getData);
   };
 
   const checkToken = localStorage.getItem("jwt");
@@ -94,6 +91,10 @@ export default function RegisterPage() {
           <button onClick={(e) => sendToBackend()}> update user </button>
         )}
       </div>
+      <button onClick={(e) => [localStorage.removeItem("jwt"), navigate("/")]}>
+        {" "}
+        create new user{" "}
+      </button>
 
       <div>
         <>{res} </>
