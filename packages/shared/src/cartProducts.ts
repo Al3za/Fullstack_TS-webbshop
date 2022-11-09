@@ -3,4 +3,5 @@ export interface cartProduct {
   productPrice: number;
   userName?: string;
   antal?: number;
+  adress?: string;
 }

@@ -5,6 +5,8 @@ import { user_interface } from "@webbshop-app/shared";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
+//console.log(Datas, "hej");
+
 export default function LoginPage() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -50,17 +52,7 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={(e) => sendToBackend()}> login </button>
-        {jwtToken ? (
-          <button onClick={(e) => navigate("/")}>update user</button>
-        ) : (
-          ""
-        )}
-        <button
-          onClick={(e) => [localStorage.removeItem("jwt"), navigate("/")]}
-        >
-          {" "}
-          create new user{" "}
-        </button>
+        <button onClick={(e) => navigate("/")}> back to registerPage </button>
       </div>
       <> {res}</>
     </div>

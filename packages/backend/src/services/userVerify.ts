@@ -1,6 +1,11 @@
 import { user_interface } from "@webbshop-app/shared";
 import { Request, Response, NextFunction } from "express";
-import { checkUser, saveUser, uppdateUser } from "../Models/userModel";
+import {
+  checkUser,
+  saveUser,
+  uppdateUser,
+  // loadUserInfo,
+} from "../Models/userModel";
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "hgvdfhbsadfvasdfjvdf";
@@ -8,6 +13,7 @@ const JWT_SECRET = "hgvdfhbsadfvasdfjvdf";
 export type tokenPayload = {
   user: string;
   userId: string;
+  UserAdress: string;
 };
 
 export interface JwtReq<T> extends Request<T> {
@@ -23,7 +29,11 @@ export const userVerify = async (
       if (getUser && getUser._id) {
         const User_id = getUser._id.toString();
         const token = jwt.sign(
-          { user: getUser.username, userId: User_id },
+          {
+            user: getUser.username,
+            userId: User_id,
+            UserAdress: getUser.address,
+          },
           JWT_SECRET,
           {
             expiresIn: "1800s",
@@ -65,9 +75,7 @@ export const registerUser = async (
     const UserID = req.jsonToken.userId;
     userItem._id = UserID;
     try {
-      await uppdateUser(body);
-      console.log("user name is ", req.jsonToken.user);
-      return true;
+      return await uppdateUser(body);
     } catch {
       return "error updating";
     }
@@ -79,8 +87,8 @@ export const registerUser = async (
     body.phoneNr != null
   ) {
     try {
-      await saveUser(body);
-      return true;
+      const userInfos = await saveUser(body);
+      return userInfos;
     } catch {
       return "username or email already exist";
     }

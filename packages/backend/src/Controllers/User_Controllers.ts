@@ -6,10 +6,12 @@ const User_Controller = express.Router();
 
 User_Controller.post(
   "/",
-  async (req: JwtReq<user_interface>, res: Response<string | boolean>) => {
+  async (
+    req: JwtReq<user_interface>,
+    res: Response<user_interface | string>
+  ) => {
     // const UserRegister = await registerUser(req.body, req);
     const UserRegister = await registerUser(req.body, req);
-    console.log("hej");
     res.send(UserRegister);
   }
 );
@@ -22,13 +24,5 @@ export const UserLogin = async (
   const getValidUser = await userVerify(reqBody);
   res.send(getValidUser);
 };
-
-User_Controller.get("/sale", async (req: JwtReq<any>, res: Response) => {
-  console.log("sale");
-  if (req.jsonToken) {
-    console.log("ciao item ", req.jsonToken.user);
-  }
-  //res.send("item tokens");
-});
 
 export default User_Controller;

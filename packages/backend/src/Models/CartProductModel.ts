@@ -5,12 +5,15 @@ const productsCart = new Schema({
   productName: { type: String },
   productPrice: { type: Number },
   username: { type: String },
+  adress: { type: String },
 });
 
 const productModel = model<cartProduct>("modelProduct", productsCart);
 
-export const loadAllCartProd = async (): Promise<cartProduct[]> => {
-  const loadAll = await productModel.find().exec();
+export const loadAllCartProd = async (
+  nameUser: string
+): Promise<cartProduct[]> => {
+  const loadAll = await productModel.find({ username: nameUser }).exec();
   return loadAll;
 };
 
