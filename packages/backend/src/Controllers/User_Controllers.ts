@@ -10,7 +10,6 @@ User_Controller.post(
     req: JwtReq<user_interface>,
     res: Response<user_interface | string>
   ) => {
-    // const UserRegister = await registerUser(req.body, req);
     const UserRegister = await registerUser(req.body, req);
     res.send(UserRegister);
   }

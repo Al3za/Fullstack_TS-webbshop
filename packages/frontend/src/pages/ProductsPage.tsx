@@ -12,7 +12,6 @@ export default function ProductsPage() {
   const [search, setSearch] = useState<string>("");
   const [enableButton, SetEnableButton] = useState<boolean>(true);
   const [test, setTest] = useState<string>("");
-  //const navigate = useNavigate();
 
   const setItem = async (itemID: number): Promise<void> => {
     const findItemId = storeItems.find((search) => search.id === itemID);

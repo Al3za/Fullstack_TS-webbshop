@@ -24,15 +24,11 @@ export default function LoginPage() {
     if (typeof send.data === "object") {
       const token = send.data.token;
       localStorage.setItem("jwt", token);
-      //setRes("");
       navigate("/products");
     }
 
     setRes(send.data);
-    const sen = await axios.get("/CreateUser/sale");
   };
-
-  const jwtToken = localStorage.getItem("jwt");
 
   return (
     <div>

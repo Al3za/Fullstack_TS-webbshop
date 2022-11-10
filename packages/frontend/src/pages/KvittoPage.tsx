@@ -37,6 +37,8 @@ export default function ShoppingCart() {
           antal: ApiData[i].length,
           adress: ApiData[i][0].adress,
         });
+      } else {
+        arr.push({ productName: "", productPrice: 0, antal: 0 });
       }
     }
 
@@ -46,11 +48,6 @@ export default function ShoppingCart() {
   useEffect(() => {
     GetCartProducts().then(setCartProduct);
   }, []);
-
-  const alex = (item: any) => {
-    // if(item.)
-    console.log(item);
-  };
 
   let nr = 0;
   let sum = 0;
@@ -62,21 +59,23 @@ export default function ShoppingCart() {
         {
           sum += products.antal ? products.antal * products.productPrice : 0;
         }
-
-        return (
-          <div key={nr++}>
-            <p>
-              {products.productName} {""} {products.antal} {""}{" "}
-              {products.productPrice}
-              {""}
-              {""} price per vara ={" "}
-              {products.antal && products.antal * products.productPrice} kr
-            </p>
-          </div>
-        );
+        if (products.productPrice > 0) {
+          return (
+            <div key={nr++}>
+              <p>
+                {products.productName} {""} {products.antal} {""}{" "}
+                {products.productPrice}
+                {""}
+                {""} price per vara ={" "}
+                {products.antal && products.antal * products.productPrice} kr
+              </p>
+            </div>
+          );
+        }
       })}
-      <p>total price = {sum} kr</p>
-      <button onClick={(e) => alex(cartProduct)}> BUY </button>
+      shipping price = 25 kr <p>total price = {sum + 25} kr</p>
+      <p>deliver Status = registrerad </p>
+      Leveransadress : {adress}
     </div>
   );
 }

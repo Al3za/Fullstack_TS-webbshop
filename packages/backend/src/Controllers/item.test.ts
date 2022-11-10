@@ -4,4 +4,4 @@ test("check url", () => {
   expect(checkUrl).toBe("mongodb://localhost:27017/webbshop");
 });
 
-// npm test -w packages/backend
+// to run backend test, close the backend server and kör det : npm test -w packages/backend
