@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { cartProduct } from "@webbshop-app/shared";
 import storeItems from "../data/items.json";
-import axios, { HttpStatusCode } from "axios";
+import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
-//if(Headers statusbar===403)
-
 export default function ShoppingCart() {
   const [cartProduct, setCartProduct] = useState<cartProduct[]>([]);
-  const [adress, setAdress] = useState<string | undefined>("");
+  const [buyProd, setBuyProd] = useState<cartProduct[]>([]);
+  const [ableBtn, disableBtn] = useState<boolean>(true);
+
+  const navigate = useNavigate();
 
   const GetCartProducts = async (): Promise<cartProduct[]> => {
     const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
-
-    setAdress(getCartProd.data[0].adress);
+    setBuyProd(getCartProd.data);
 
     const MatchName = (getApiName: any) => {
       const test = getCartProd.data.filter((item: any) => {
@@ -47,9 +48,14 @@ export default function ShoppingCart() {
     GetCartProducts().then(setCartProduct);
   }, []);
 
-  const alex = (item: any) => {
-    // if(item.)
-    console.log(item);
+  const send = async (item: any) => {
+    const send = await axios.post("BuyedItem", item);
+    const sentRes = send.data;
+    if (sentRes === "saved") {
+      await axios.get("/addToCartProducts/delete");
+      disableBtn(false);
+      await GetCartProducts();
+    }
   };
 
   let nr = 0;
@@ -76,7 +82,15 @@ export default function ShoppingCart() {
         );
       })}
       <p>total price = {sum} kr</p>
-      <button onClick={(e) => alex(cartProduct)}> BUY </button>
+      <p>
+        <button onClick={(e) => send(buyProd)}> BUY </button>
+      </p>
+      <p>
+        <button disabled={ableBtn} onClick={(e) => navigate("/buyedProducts")}>
+          Se All products you buyed
+        </button>
+      </p>
+      <button onClick={(e) => navigate("/products")}> back to products </button>
     </div>
   );
 }

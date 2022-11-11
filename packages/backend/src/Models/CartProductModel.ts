@@ -11,7 +11,7 @@ const productsCart = new Schema({
 const productModel = model<cartProduct>("modelProduct", productsCart);
 
 export const loadAllCartProd = async (
- nameUser: any
+  nameUser: any
 ): Promise<cartProduct[]> => {
   const loadAll = await productModel.find({ username: nameUser }).exec();
   return loadAll;
@@ -24,4 +24,10 @@ export const saveCartProduct = async (cartItem: cartProduct) => {
   if (!saveCartProduct) {
     throw new Error("ingen product");
   }
+};
+
+export const DeleteCartItems = async (NameUser: string): Promise<void> => {
+  const deleteAllCartItems = await productModel.deleteMany({
+    username: NameUser,
+  });
 };

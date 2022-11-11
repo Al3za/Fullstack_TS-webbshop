@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { cartProduct } from "@webbshop-app/shared";
 import storeItems from "../data/items.json";
-import axios, { HttpStatusCode } from "axios";
+import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
-//if(Headers statusbar===403)
-
-export default function ShoppingCart() {
+export default function BuyedProduct() {
   const [cartProduct, setCartProduct] = useState<cartProduct[]>([]);
   const [adress, setAdress] = useState<string | undefined>("");
+  const navigate = useNavigate();
 
   const GetCartProducts = async (): Promise<cartProduct[]> => {
-    const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
+    const getCartProd = await axios.get<cartProduct[]>("/BuyedItem");
 
     setAdress(getCartProd.data[0].adress);
 
@@ -53,7 +53,7 @@ export default function ShoppingCart() {
   let sum = 0;
   return (
     <div>
-      <h1>ShoppingCart</h1>
+      <h1>All your products </h1>
       {cartProduct.map((products) => {
         // eslint-disable-next-line no-lone-blocks
         {
@@ -75,7 +75,14 @@ export default function ShoppingCart() {
       })}
       shipping price = 25 kr <p>total price = {sum + 25} kr</p>
       <p>deliver Status = registrerad </p>
-      Leveransadress : {adress}
+      <p>Leveransadress : {adress}</p>
+      <p>
+        <button onClick={(e) => navigate("/products")}>
+          {" "}
+          back to products{" "}
+        </button>
+      </p>
+      <button onClick={(e) => navigate("/cart")}> back to cart </button>
     </div>
   );
 }

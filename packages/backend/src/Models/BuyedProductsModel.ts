@@ -8,16 +8,19 @@ const Buyedproducts = new Schema({
   adress: { type: String },
 });
 
-const BuyedProductModel = model<cartProduct>("modelProduct", Buyedproducts);
+const BuyedProductModel = model<cartProduct>(
+  "modelProductBuyed",
+  Buyedproducts
+);
 
-export const loadAllCartProd = async (
+export const loadAllBuyedProd = async (
   nameUser: any
 ): Promise<cartProduct[]> => {
   const loadAll = await BuyedProductModel.find({ username: nameUser }).exec();
   return loadAll;
 };
 
-export const saveCartProduct = async (cartItem: cartProduct) => {
+export const saveBuyedProduct = async (cartItem: cartProduct) => {
   const newProductCart = new BuyedProductModel(cartItem);
   const saveCartProduct = await newProductCart.save();
 

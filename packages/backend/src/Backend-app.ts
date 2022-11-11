@@ -4,6 +4,7 @@ import User_Controller, { UserLogin } from "./Controllers/User_Controllers";
 import { setUpMongoDb } from "./Models/userModel";
 import { autenticateToken } from "./services/userVerify";
 import addToCardProduct from "./Controllers/addToCard";
+import Buyed_Item from "./Controllers/BuyedCartItems";
 
 const app: Application = express();
 const mongoUrl: string =
@@ -15,6 +16,7 @@ app.post("/login", UserLogin);
 app.use(autenticateToken);
 app.use("/CreateUser", User_Controller);
 app.use("/addToCartProducts", addToCardProduct);
+app.use("/BuyedItem", Buyed_Item);
 
 export const checkUrl = mongoUrl;
 
