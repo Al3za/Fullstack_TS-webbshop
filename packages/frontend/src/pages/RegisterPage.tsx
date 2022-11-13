@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { user_interface } from "@webbshop-app/shared";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = process.env.WEBBSHOP_API || "http://localhost:4000";
 
 axios.interceptors.request.use((config) => {
   if (!config.headers) {
@@ -86,16 +86,11 @@ export default function RegisterPage() {
         />
         <br />
         {!checkToken ? (
-          <button onClick={(e) => sendToBackend()}> send </button>
+          <button onClick={(e) => sendToBackend()}> Send </button>
         ) : (
           <button onClick={(e) => sendToBackend()}> update user </button>
         )}
       </div>
-      <button onClick={(e) => [localStorage.removeItem("jwt"), navigate("/")]}>
-        {" "}
-        create new user{" "}
-      </button>
-
       <div>
         <>{res} </>
       </div>

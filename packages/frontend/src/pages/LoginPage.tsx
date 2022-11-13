@@ -47,8 +47,15 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={(e) => sendToBackend()}> login </button>
-        <button onClick={(e) => navigate("/")}> back to registerPage </button>
+        <div>
+          <button onClick={(e) => sendToBackend()}> login </button>
+          </div>
+          <div>  <button onClick={(e) => navigate("/")}> back to registerPage & update user </button>
+        </div>
+        <button onClick={(e) => [localStorage.removeItem("jwt"), navigate("/")]}>
+        {" "}
+        back to registerPage & create new user {" "}
+      </button>
       </div>
       <> {res}</>
     </div>
