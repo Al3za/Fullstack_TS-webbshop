@@ -39,17 +39,21 @@ export default function ProductsPage() {
 
   return (
     <>
-      <h1>Products Page</h1>
-      <header>headers här</header>
-      <input
-        onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search Products"
-      />
+      <div className="Cart_Btn">
+        <button disabled={cartButton} onClick={(e) => navigate("/cart")}>
+          CART
+        </button>
+      </div>
+      <div className="ProductsHeader">
+        <h1>Products Page</h1>
+        <input
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search Products"
+        />
+        <hr />
+        <button onClick={(e) => navigate("/login")}>go to login</button>
+      </div>
       <hr />
-      <button onClick={(e) => navigate("/login")}>go to login</button>
-      <button disabled={cartButton} onClick={(e) => navigate("/cart")}>
-        CART
-      </button>
       <section>
         <Row md={2} xs={1} lg={3} className="g-3">
           {storeItems
@@ -61,7 +65,7 @@ export default function ProductsPage() {
 
             .map((item) => (
               <Col key={item.id}>
-                <Link to={`/details/${item.id}`}>
+                <Link className="link" to={`/details/${item.id}`}>
                   <StoreItem {...item} />
                 </Link>
                 <Button

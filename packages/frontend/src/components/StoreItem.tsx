@@ -31,7 +31,7 @@ export function StoreItem({ name, price, imgUrl }: StoreItemProps) {
           <span className="fs-2">{name}</span>
           <span className="ms-2 text-muted">Price : ${price}</span>
         </Card.Title>
-        {/* <Button disabled={true}>Add To Cart</Button> */}
+        {/* <Button disabled={true}>Add To Cart s</Button> */}
       </Card.Body>
     </Card>
   );

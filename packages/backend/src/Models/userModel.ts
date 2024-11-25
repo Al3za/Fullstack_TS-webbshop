@@ -43,6 +43,8 @@ export const saveUser = async (
   console.log(userInfo);
   return userInfo ? userInfo.username : "";
 };
+
+
 export const uppdateUser = async (update: user_interface) => {
   const { _id, mail, address, password, phoneNr, username } = update;
   const hashadPassword = await bcrypt.hash(password, 10);

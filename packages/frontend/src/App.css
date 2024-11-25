@@ -36,3 +36,103 @@
     transform: rotate(360deg);
   }
 }
+
+.SignContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Register input {
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 2px solid black;
+  /* background-color: #9de6fa; */
+}
+
+.Register input:hover {
+  background-color: #61dafb;
+}
+
+.buttonToLogin button {
+  margin-top: 15px;
+  margin: 8px;
+  font-weight: 600;
+  padding: 5px;
+  border-radius: 7px;
+}
+
+.buttonToLogin button:hover {
+  background-color: cadetblue;
+}
+
+.ProductsHeader {
+  margin: auto;
+  width: 30%;
+  display: block;
+  text-align: center;
+}
+
+.ProductsHeader input {
+  text-align: center;
+}
+.link {
+  text-align: center;
+}
+
+.Cart_Btn {
+  position: absolute;
+  right: 10%;
+  transform: translateX(-50%);
+  margin-top: 15px;
+}
+
+.DetailTitle {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.ImgContainer {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.DetailName {
+  text-align: center;
+  font-weight: bolder;
+  font-size: larger;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-bottom: 15px;
+}
+
+.DetailDescription {
+  margin: auto;
+  width: 800px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.bodyDetails {
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+.bodyDetails p {
+  margin-left: 10px;
+
+  color: black;
+}
+
+.bodyDetails span {
+  font-size: large;
+  font-weight: bolder;
+}
+
+u {
+  font-weight: 500;
+}

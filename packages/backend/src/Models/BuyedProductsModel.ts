@@ -4,7 +4,7 @@ import { cartProduct } from "@webbshop-app/shared";
 const Buyedproducts = new Schema({
   productName: { type: String },
   productPrice: { type: Number },
-  username: { type: String },
+  username: { type: String/*, require:true*/ },
   adress: { type: String },
 });
 

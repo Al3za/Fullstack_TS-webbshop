@@ -6,6 +6,7 @@ import {
   uppdateUser,
   // loadUserInfo,
 } from "../Models/userModel";
+
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "hgvdfhbsadfvasdfjvdf";
@@ -54,7 +55,7 @@ export const autenticateToken = async (
   res: Response,
   next: NextFunction
 ) => {
-  const token: string | undefined = req.header("authorization")?.split(" ")[1];
+  const token: string | undefined = req.header("authorization")?.split(" ")[1]; // bearer token we split by space and get thetoken string
   if (token) {
     try {
       const decoded = jwt.verify(token, JWT_SECRET) as tokenPayload;

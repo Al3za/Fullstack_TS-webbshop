@@ -1,4 +1,4 @@
-import { model, Schema, connect } from "mongoose";
+import { model, Schema } from "mongoose";
 import { cartProduct } from "@webbshop-app/shared";
 
 const productsCart = new Schema({
