@@ -14,6 +14,7 @@ export default function ShoppingCart() {
   const navigate = useNavigate();
 
   const GetCartProducts = async (): Promise<cartProduct[]> => {
+    // this is the page rendered when we click on CART button when we added somethin to cart
     const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
     setBuyProd(getCartProd.data);
 

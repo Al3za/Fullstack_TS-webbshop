@@ -1,5 +1,5 @@
-import { Button, Card } from "react-bootstrap";
-import React, { useState } from "react";
+import { Card } from "react-bootstrap";
+import React from "react";
 
 export interface StoreItemProps {
   id: number;
@@ -12,7 +12,7 @@ export interface StoreItemProps {
   imgUrl: string;
 }
 
-const jwtToken = localStorage.getItem("jwt");
+//const jwtToken = localStorage.getItem("jwt");
 
 export function StoreItem({ name, price, imgUrl }: StoreItemProps) {
   //const [buttonState, useButtonState] = useState<boolean>(true);

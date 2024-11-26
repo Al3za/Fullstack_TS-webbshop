@@ -8,6 +8,7 @@ import { cartProduct } from "@webbshop-app/shared";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
+let notFounMsg = "";
 export default function ProductsPage() {
   const [search, setSearch] = useState<string>("");
   const [enableButton, SetEnableButton] = useState<boolean>(true);
@@ -30,8 +31,20 @@ export default function ProductsPage() {
     }
   };
 
+  const checkCartProduct = async () => {
+    const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
+    return getCartProd.data;
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("jwt");
+    const CartData = checkCartProduct();
+    CartData.then((res) => {
+      const data = res.length;
+      if (data > 0) {
+        setCartButton(false);
+      }
+    });
     if (token) {
       SetEnableButton(false);
     }
@@ -39,6 +52,7 @@ export default function ProductsPage() {
 
   return (
     <>
+      {notFounMsg}
       <div className="Cart_Btn">
         <button disabled={cartButton} onClick={(e) => navigate("/cart")}>
           CART
