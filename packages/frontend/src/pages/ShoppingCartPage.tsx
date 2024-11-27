@@ -10,13 +10,18 @@ axios.defaults.baseURL = "http://localhost:4000";
 export default function ShoppingCart() {
   const [cartProduct, setCartProduct] = useState<cartProduct[]>([]);
   const [buyProd, setBuyProd] = useState<cartProduct[]>([]);
-  const [ableBtn, disableBtn] = useState<boolean>(true);
+  const [ableBtn, setAbleBtn] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
   const GetCartProducts = async (): Promise<cartProduct[]> => {
     // this is the page rendered when we click on CART button when we added somethin to cart
     const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
+    if (getCartProd.data.length > 0) {
+      setAbleBtn(false);
+    } else {
+      setAbleBtn(true);
+    }
     // console.log(getCartProd.data, "dataaa", getCartProd.data[0].username);
     setBuyProd(getCartProd.data);
 
@@ -49,16 +54,20 @@ export default function ShoppingCart() {
   };
 
   useEffect(() => {
+    console.log("hit");
     GetCartProducts().then(setCartProduct);
   }, []);
 
-  const send = async (item: any) => {
-    const send = await axios.post("BuyedItem", item);
-    const sentRes = send.data;
-    if (sentRes === "saved") {
-      await axios.get("/addToCartProducts/delete");
-      disableBtn(false);
-      await GetCartProducts();
+  const Buy = async (item: any) => {
+    const text = "you want to proceed with the purchase";
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm(text) === true) {
+      const send = await axios.post("BuyedItem", item);
+      const sentRes = send.data;
+      if (sentRes === "saved") {
+        navigate("/buyedProducts");
+        await axios.get("/addToCartProducts/delete");
+      }
     }
   };
 
@@ -90,13 +99,23 @@ export default function ShoppingCart() {
         return (
           <div key={nr++}>
             <p>
-              PRODUCT: <span>{products.productName}</span> TOTAL:
-              <span>{products.antal}</span> PRICE
+              PRODUCT: <span>{products.productName}</span> TOTAL:{" "}
+              <span>{products.antal}</span> PRICE:{" "}
               <span>{products.productPrice}</span>
-              PRICE FOR EACH =
-              <span>
-                {products.antal && products.antal * products.productPrice} kr
-              </span>
+              {products.antal && products.antal > 1 ? (
+                <>
+                  <u>
+                    PRICE FOR <span>{products.antal}</span>
+                  </u>{" "}
+                  ={" "}
+                  <span>
+                    {products.antal && products.antal * products.productPrice}{" "}
+                    kr
+                  </span>
+                </>
+              ) : (
+                ""
+              )}
             </p>
             <button
               onClick={(e) =>
@@ -113,13 +132,16 @@ export default function ShoppingCart() {
         TOTAL PRICE=<span> {sum} kr</span>
       </p>
       <p>
-        <button onClick={(e) => send(buyProd)}> BUY </button>
+        <button disabled={ableBtn} onClick={(e) => Buy(buyProd)}>
+          {" "}
+          BUY{" "}
+        </button>
       </p>
-      <p>
+      {/* <p>
         <button disabled={ableBtn} onClick={(e) => navigate("/buyedProducts")}>
           Se All products you buyed
         </button>
-      </p>
+      </p> */}
       <button onClick={(e) => navigate("/products")}> back to products </button>
     </div>
   );
