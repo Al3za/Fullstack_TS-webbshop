@@ -52,8 +52,8 @@ export default function BuyedProduct() {
   let nr = 0;
   let sum = 0;
   return (
-    <div>
-      <h1>All your products </h1>
+    <div className="ShopCartdiv">
+      <h1>Buyed products </h1>
       {cartProduct.map((products) => {
         // eslint-disable-next-line no-lone-blocks
         {
@@ -63,19 +63,38 @@ export default function BuyedProduct() {
           return (
             <div key={nr++}>
               <p>
-                {products.productName} {""} {products.antal} {""}{" "}
-                {products.productPrice}
-                {""}
-                {""} price per vara ={" "}
-                {products.antal && products.antal * products.productPrice} kr
+                <u>PRODUCT</u> : <span>{products.productName}</span>{" "}
+                <u>TOTAL</u>: <span>{products.antal}</span> <u>PRICE</u>:{" "}
+                <span>{products.productPrice}</span>
+                {products.antal && products.antal > 1 ? (
+                  <>
+                    <u>
+                      PRICE FOR <span>{products.antal}</span>
+                    </u>{" "}
+                    ={" "}
+                    <span>
+                      {products.antal && products.antal * products.productPrice}{" "}
+                      kr
+                    </span>
+                  </>
+                ) : (
+                  ""
+                )}
               </p>
             </div>
           );
         }
       })}
-      shipping price = 25 kr <p>total price = {sum + 25} kr</p>
-      <p>deliver Status = registrerad </p>
-      <p>Leveransadress : {adress}</p>
+      SHIPPING PRICE = <span>25 kr</span>
+      <p>
+        TOTAL PRICE = <span>{sum + 25} kr</span>
+      </p>
+      <p>
+        DELIVER STATUS = <span>Registered</span>
+      </p>
+      <p>
+        LEVERANSADRESS : <span>{adress}</span>
+      </p>
       <p>
         <button onClick={(e) => navigate("/products")}>
           {" "}

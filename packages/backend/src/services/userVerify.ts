@@ -62,7 +62,7 @@ export const autenticateToken = async (
       req.jsonToken = decoded; // decoded =  user: string; userId: string; UserAdress: string;
       // we personalize our request with the name jsonToken, req.jsonToken
     } catch {
-      return res.sendStatus(403);
+      return res.sendStatus(403); // we get this status code when the token exist but is expired
     }
   }
   next(); // this is a middleware, we pass the req if token is valid, to the route the client fetched;
