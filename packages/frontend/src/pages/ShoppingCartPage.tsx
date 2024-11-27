@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { cartProduct } from "@webbshop-app/shared";
 import storeItems from "../data/items.json";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
@@ -16,24 +17,26 @@ export default function ShoppingCart() {
   const GetCartProducts = async (): Promise<cartProduct[]> => {
     // this is the page rendered when we click on CART button when we added somethin to cart
     const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
+    // console.log(getCartProd.data, "dataaa", getCartProd.data[0].username);
     setBuyProd(getCartProd.data);
 
     const MatchName = (getApiName: any) => {
-      const test = getCartProd.data.filter((item: any) => {
+      const filters = getCartProd.data.filter((item: any) => {
         return item.productName === getApiName;
       });
-      return test;
+      return filters;
     };
 
     const ApiData = storeItems.map((itemName) => {
       return MatchName(itemName.name);
-    });
+    }); // if no product name matches the map method will anyway return an empty array;
 
     const arr = [];
 
     for (let i = 0; i < ApiData.length; i++) {
       if (ApiData[i].length > 0) {
         arr.push({
+          username: ApiData[i][0].username,
           productName: ApiData[i][0].productName,
           productPrice: ApiData[i][0].productPrice,
           antal: ApiData[i].length,
@@ -59,10 +62,24 @@ export default function ShoppingCart() {
     }
   };
 
+  const deleteCardProd = async (
+    ProdName: string,
+    username?: string | null
+  ): Promise<void> => {
+    const deleteProduct = await axios.post("/addToCartProducts/deleteProduct", {
+      ProdName,
+      username,
+    }); // those names has to match the ones on req.body endpoints
+    if (deleteProduct.status === 200) {
+      console.log("delete prod true");
+      GetCartProducts().then(setCartProduct);
+    }
+  };
+
   let nr = 0;
   let sum = 0;
   return (
-    <div>
+    <div className="ShopCartdiv">
       <h1>ShoppingCart</h1>
       {cartProduct.map((products) => {
         // eslint-disable-next-line no-lone-blocks
@@ -73,16 +90,28 @@ export default function ShoppingCart() {
         return (
           <div key={nr++}>
             <p>
-              {products.productName} {""} {products.antal} {""}{" "}
-              {products.productPrice}
-              {""}
-              {""} price per vara ={" "}
-              {products.antal && products.antal * products.productPrice} kr
+              PRODUCT: <span>{products.productName}</span> TOTAL:
+              <span>{products.antal}</span> PRICE
+              <span>{products.productPrice}</span>
+              PRICE FOR EACH =
+              <span>
+                {products.antal && products.antal * products.productPrice} kr
+              </span>
             </p>
+            <button
+              onClick={(e) =>
+                deleteCardProd(products.productName, products.username)
+              }
+            >
+              <FaTrash />
+            </button>
           </div>
         );
       })}
-      <p>total price = {sum} kr</p>
+      <p>
+        {" "}
+        TOTAL PRICE=<span> {sum} kr</span>
+      </p>
       <p>
         <button onClick={(e) => send(buyProd)}> BUY </button>
       </p>

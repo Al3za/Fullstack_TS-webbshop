@@ -16,12 +16,12 @@ User_Controller.post(
 );
 
 export const UserLogin = async (
-  req: Request<user_interface>,
+  req: Request<user_interface>, //the data we get from client, expected to be of user_interface type
   res: Response<string | object>
 ) => {
   const reqBody = req.body;
   const getValidUser = await userVerify(reqBody);
   res.send(getValidUser);
-};
+}; // here we call the userVerify to validate the user login
 
 export default User_Controller;

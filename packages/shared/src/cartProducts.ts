@@ -1,7 +1,7 @@
 export interface cartProduct {
   productName: string;
   productPrice: number;
-  userName?: string;
+  username?: string;
   antal?: number;
   adress?: string;
 }

@@ -14,7 +14,7 @@ const mongoUrl: string =
 app.use(cors());
 app.use(json());
 app.post("/login", UserLogin);
-app.use(autenticateToken); // this middleware applies for every request
+app.use(autenticateToken); // this middleware applies for every request even in login and createUser
 app.use("/CreateUser", User_Controller);
 app.use("/addToCartProducts", addToCardProduct);
 app.use("/BuyedItem", Buyed_Item);

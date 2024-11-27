@@ -2,10 +2,10 @@ import { model, Schema } from "mongoose";
 import { cartProduct } from "@webbshop-app/shared";
 
 const productsCart = new Schema({
-  productName: { type: String },
-  productPrice: { type: Number },
-  username: { type: String },
-  adress: { type: String },
+  productName: { type: String, required: true },
+  productPrice: { type: Number, required: true },
+  username: { type: String, required: true },
+  adress: { type: String, required: true },
 });
 
 const productModel = model<cartProduct>("modelProduct", productsCart);
@@ -18,6 +18,7 @@ export const loadAllCartProd = async (
 };
 
 export const saveCartProduct = async (cartItem: cartProduct) => {
+  // cartItem.adress = '';
   const newProductCart = new productModel(cartItem);
   const saveCartProduct = await newProductCart.save();
 
@@ -25,6 +26,18 @@ export const saveCartProduct = async (cartItem: cartProduct) => {
     throw new Error("ingen product");
   }
 };
+
+interface deleteCartItem {
+  username: string,
+  ProdName: string
+} //those names has to match the ones on axios request client side
+export const DeleteCartItem = async (deleteCartItem: deleteCartItem) => {
+  const getDataToDelete = await productModel.deleteMany({ username: deleteCartItem.username, productName: deleteCartItem.ProdName });
+  if (!getDataToDelete) { throw new Error("Not able to delete") }
+
+  // console.log(getDataToDelete, 'getDataToDelete') the console.log data when the delete function went well = { acknowledged: true, deletedCount: 2 } getDataToDelete
+};
+
 
 export const DeleteCartItems = async (NameUser: string): Promise<void> => {
   const deleteAllCartItems = await productModel.deleteMany({

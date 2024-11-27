@@ -21,13 +21,20 @@ export default function ProductsPage() {
     const productName = findItemId?.name;
     const productPrice = findItemId?.price;
 
-    const sendCartprods = await axios.post<cartProduct>("/addToCartProducts", {
-      productName,
-      productPrice,
-    });
-    const res = sendCartprods.data;
-    if (typeof res === "string") {
+    try {
+      const sendCartprods = await axios.post<cartProduct | string>(
+        "/addToCartProducts",
+        {
+          productName,
+          productPrice,
+        }
+      );
+      const res: cartProduct | string = sendCartprods.data;
+      console.log(res, "res");
+
       setCartButton(false);
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -43,7 +50,7 @@ export default function ProductsPage() {
       const data = res.length;
       if (data > 0) {
         setCartButton(false);
-      }
+      } // in future try to cache data
     });
     if (token) {
       SetEnableButton(false);

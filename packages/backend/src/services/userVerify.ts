@@ -48,7 +48,7 @@ export const userVerify = async (
   } else {
     return "write both username and password";
   }
-};
+}; // here we create a jwt token if the user login is sucessfull
 
 export const autenticateToken = async (
   req: JwtReq<any>,
@@ -59,12 +59,15 @@ export const autenticateToken = async (
   if (token) {
     try {
       const decoded = jwt.verify(token, JWT_SECRET) as tokenPayload;
-      req.jsonToken = decoded;
+      req.jsonToken = decoded; // decoded =  user: string; userId: string; UserAdress: string;
+      // we personalize our request with the name jsonToken, req.jsonToken
     } catch {
       return res.sendStatus(403);
     }
   }
-  next();
+  next(); // this is a middleware, we pass the req if token is valid, to the route the client fetched;
+  // if the requested endpoin has (req.jsonToken), it means that the route check if a jwt token extist 
+  //in the header of the client request,
 };
 
 export const registerUser = async (

@@ -136,3 +136,15 @@
 u {
   font-weight: 500;
 }
+
+.ShopCartdiv {
+  margin: auto;
+  width: 50%;
+
+  padding: 10px;
+}
+
+.ShopCartdiv span {
+  font-size: large;
+  font-weight: bolder;
+}
