@@ -101,7 +101,7 @@ export default function BuyedProduct() {
           back to products{" "}
         </button>
       </p>
-      <button onClick={(e) => navigate("/cart")}> back to cart </button>
+      {/* <button onClick={(e) => navigate("/cart")}> back to cart </button> */}
     </div>
   );
 }
