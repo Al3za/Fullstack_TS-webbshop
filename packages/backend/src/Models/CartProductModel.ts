@@ -1,5 +1,10 @@
-import { model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
+import cache from "ts-cache-mongoose";
 import { cartProduct } from "@webbshop-app/shared";
+
+cache.init(mongoose, {
+  engine: 'memory',
+})
 
 const productsCart = new Schema({
   productName: { type: String, required: true },
@@ -13,7 +18,10 @@ const productModel = model<cartProduct>("modelProduct", productsCart);
 export const loadAllCartProd = async (
   nameUser: any
 ): Promise<cartProduct[]> => {
-  const loadAll = await productModel.find({ username: nameUser }).exec();
+  console.log('load endpoint hit')
+  // const loadAll = await productModel.find({ username: nameUser }).cache('10 seconds').exec(); cache works
+  // it hold data for 10 secs then when this endpoint hits after 10 secs it ll shows new data if there is some
+  const loadAll = await productModel.find({ username: nameUser }).exec()
   return loadAll;
 };
 

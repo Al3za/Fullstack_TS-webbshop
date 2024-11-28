@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import storeItems from "../data/items.json";
 import { Col, Row, Button } from "react-bootstrap";
 import { StoreItem } from "../components/StoreItem";
@@ -15,7 +15,11 @@ export default function ProductsPage() {
   const [cartButton, setCartButton] = useState<boolean>(true);
 
   const navigate = useNavigate();
-
+  const location = useLocation();
+  console.log(location.state, "location.state");
+  if (location.state && location.state.itemLength > 0) {
+    console.log(location.state.itemLength, "location.state.itemLength");
+  }
   const setItem = async (itemID: number): Promise<void> => {
     const findItemId = storeItems.find((search) => search.id === itemID);
     const productName = findItemId?.name;
@@ -45,13 +49,20 @@ export default function ProductsPage() {
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-    const CartData = checkCartProduct();
-    CartData.then((res) => {
-      const data = res.length;
-      if (data > 0) {
-        setCartButton(false);
-      } // in future try to cache data
-    });
+    console.log();
+    if (location.state && location.state.itemLength > 0) {
+      setCartButton(false);
+    } else {
+      console.log("hit database");
+      const CartData = checkCartProduct();
+      CartData.then((res) => {
+        const data = res.length;
+        if (data > 0) {
+          // console.log("data lenght");
+          setCartButton(false);
+        } // in future try to cache data
+      });
+    } // this way i make less query to the db,
     if (token) {
       SetEnableButton(false);
     }
@@ -104,3 +115,4 @@ export default function ProductsPage() {
     </>
   );
 }
+// if storedItems data was stored in the mongoDb, there could i use cache data.

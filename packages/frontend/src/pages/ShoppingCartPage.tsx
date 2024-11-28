@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cartProduct } from "@webbshop-app/shared";
 import storeItems from "../data/items.json";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { FaTrash } from "react-icons/fa";
 
 axios.defaults.baseURL = "http://localhost:4000";
 
+let Current_NumberItem_InCart = 0;
 export default function ShoppingCart() {
   const [cartProduct, setCartProduct] = useState<cartProduct[]>([]);
   const [buyProd, setBuyProd] = useState<cartProduct[]>([]);
@@ -17,12 +18,12 @@ export default function ShoppingCart() {
   const GetCartProducts = async (): Promise<cartProduct[]> => {
     // this is the page rendered when we click on CART button when we added somethin to cart
     const getCartProd = await axios.get<cartProduct[]>("/addToCartProducts");
+    Current_NumberItem_InCart = getCartProd.data.length;
     if (getCartProd.data.length > 0) {
       setAbleBtn(false);
     } else {
       setAbleBtn(true);
     }
-    // console.log(getCartProd.data, "dataaa", getCartProd.data[0].username);
     setBuyProd(getCartProd.data);
 
     const MatchName = (getApiName: any) => {
@@ -52,7 +53,7 @@ export default function ShoppingCart() {
 
     return arr as unknown as cartProduct[];
   };
-
+  console.log("Current_NumberItem_InCart", Current_NumberItem_InCart);
   useEffect(() => {
     console.log("hit");
     GetCartProducts().then(setCartProduct);
@@ -85,11 +86,19 @@ export default function ShoppingCart() {
     }
   };
 
+  interface CartItemLength {
+    itemLength: Number;
+  }
+
+  const cartItem_length: CartItemLength = {
+    itemLength: Current_NumberItem_InCart,
+  };
+
   let nr = 0;
   let sum = 0;
   return (
     <div className="ShopCartdiv">
-      <h1>ShoppingCart</h1>
+      <h1>Cart</h1>
       {cartProduct.map((products) => {
         // eslint-disable-next-line no-lone-blocks
         {
@@ -99,15 +108,14 @@ export default function ShoppingCart() {
         return (
           <div key={nr++}>
             <p>
-              PRODUCT: <span>{products.productName}</span> TOTAL:{" "}
-              <span>{products.antal}</span> PRICE:{" "}
-              <span>{products.productPrice}</span>
+              <u>PRODUCT</u>: <span>{products.productName}</span> <u>TOTAL</u>:{" "}
+              <span>{products.antal}</span> <u>PRICE</u>:{" "}
+              <span>{products.productPrice} Kr</span>
               {products.antal && products.antal > 1 ? (
                 <>
                   <u>
-                    PRICE FOR <span>{products.antal}</span>
-                  </u>{" "}
-                  ={" "}
+                    <u>PRICE FOR</u> <span>{products.antal} =</span>
+                  </u>
                   <span>
                     {products.antal && products.antal * products.productPrice}{" "}
                     kr
@@ -116,33 +124,32 @@ export default function ShoppingCart() {
               ) : (
                 ""
               )}
+              <button
+                onClick={(e) =>
+                  deleteCardProd(products.productName, products.username)
+                }
+              >
+                <FaTrash />
+              </button>
             </p>
-            <button
-              onClick={(e) =>
-                deleteCardProd(products.productName, products.username)
-              }
-            >
-              <FaTrash />
-            </button>
           </div>
         );
       })}
       <p>
         {" "}
-        TOTAL PRICE=<span> {sum} kr</span>
+        <u>TOTAL PRICE</u> =<span> {sum} kr</span>
       </p>
-      <p>
+      <div className="DivBtn">
         <button disabled={ableBtn} onClick={(e) => Buy(buyProd)}>
           {" "}
           BUY{" "}
+        </button>{" "}
+        <button>
+          <Link to={"/products"} state={cartItem_length}>
+            Back To Products
+          </Link>
         </button>
-      </p>
-      {/* <p>
-        <button disabled={ableBtn} onClick={(e) => navigate("/buyedProducts")}>
-          Se All products you buyed
-        </button>
-      </p> */}
-      <button onClick={(e) => navigate("/products")}> back to products </button>
+      </div>
     </div>
   );
 }
