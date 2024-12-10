@@ -1,9 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+axios.defaults.baseURL = "http://localhost:4000";
 export default function TestPage() {
   const dataname = {
     name: "alessandro",
+  };
+
+  const getToken = async () => {
+    const refreshToken = await axios.get("/addToCartProducts", {
+      withCredentials: true, // we send the httpOnly cookie to refresh the accessToken
+    });
+    console.log("hfhfhfh", await refreshToken.data);
+    if (await refreshToken.data) {
+      console.log(
+        // await refreshToken.data.AccessToken,
+        " refreshToken.data.AccessToken"
+      );
+    }
   };
 
   return (
@@ -16,6 +31,7 @@ export default function TestPage() {
         */}
         go to link
       </Link>
+      <button onClick={() => getToken()}> New RefreshToken </button>
     </div>
   );
 }

@@ -16,6 +16,52 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async function (error) {
+    const originalRequest = error.config;
+    if (error.request.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      try {
+        // create a function to refresh the token and store it in
+        console.log("accessToken interceptor so far");
+        const resp = await generateRefreshToken(); // when the httpOnly cookies expires it ll lead to an endless loop (has to be fixed)
+        const AccessToken = await resp; //.AccessToken;
+        console.log(AccessToken, "accessToken interceptor");
+        if (AccessToken.message) {
+          alert("Please log In before using the app");
+          return; // find a way to redirect user to ligin at this point
+        }
+        localStorage.removeItem("jwt"); // find a way to set cookies in react
+        localStorage.setItem("jwt", AccessToken?.AccessToken);
+        // document.cookie = `AccessToken = ${accessToken}  expires= Mon, 10 Dec 2024 20:00:00 UTC path=/`; // the jwt token stored inside this cookie expires after one minute
+        axios.defaults.headers.common[
+          "authorization"
+        ] = `Bearer ${AccessToken}`;
+        return axios(originalRequest);
+      } catch (refreshError) {
+        alert(refreshError);
+      }
+    }
+  }
+);
+
+const generateRefreshToken = async () => {
+  // call the refreshEndpoint
+  try {
+    const response = await axios.get("/refresh", {
+      withCredentials: true, //  send the httpOnly cookies to for verify purpuse
+    });
+    const { data } = response;
+    console.log(data, "refreshData");
+    return await data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default function RegisterPage() {
   const [username, setUsername] = useState<string>("");
   const [mail, setMail] = useState<string>("");
