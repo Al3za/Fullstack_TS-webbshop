@@ -70,7 +70,6 @@ export default function ProductsPage() {
 
   return (
     <>
-      {notFounMsg}
       <div className="Cart_Btn">
         <button disabled={cartButton} onClick={(e) => navigate("/cart")}>
           CART
@@ -90,28 +89,47 @@ export default function ProductsPage() {
         <Row md={2} xs={1} lg={3} className="g-3">
           {storeItems
             .filter((item) => {
-              return search.toLowerCase() === ""
-                ? item
-                : item.name.toLowerCase().includes(search);
+              const fun = () => {
+                notFounMsg = "";
+                if (search.toLowerCase() === "") {
+                  notFounMsg = "";
+                  return item;
+                }
+                if (!item.name.toLowerCase().includes(search)) {
+                  notFounMsg = "not found";
+                  return "";
+                }
+                if (item.name.toLowerCase().includes(search)) {
+                  notFounMsg = "";
+                  return item.name.toLowerCase().includes(search);
+                }
+              };
+              // return search.toLowerCase() === ""
+              //   ? item
+              //   : item.name.toLowerCase().includes(search);
+              return fun();
             })
 
             .map((item) => (
-              <Col key={item.id}>
-                <Link className="link" to={`/details/${item.id}`}>
-                  <StoreItem {...item} />
-                </Link>
-                <Button
-                  disabled={enableButton}
-                  style={{ width: "100%" }}
-                  onClick={(e) => setItem(item.id)}
-                >
-                  add to cart
-                </Button>
-              </Col>
+              <>
+                <Col key={item.id}>
+                  <Link className="link" to={`/details/${item.id}`}>
+                    <StoreItem {...item} />
+                  </Link>
+                  <Button
+                    disabled={enableButton}
+                    style={{ width: "100%" }}
+                    onClick={(e) => setItem(item.id)}
+                  >
+                    add to cart
+                  </Button>
+                </Col>
+              </>
             ))}
         </Row>
       </section>{" "}
       <hr />
+      {notFounMsg} {/* center this */}
     </>
   );
 }
