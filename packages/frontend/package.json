@@ -9,6 +9,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.65",
     "@types/react": "^18.0.21",
+    "@types/react-cookies": "^0.1.4",
     "@types/react-dom": "^18.0.6",
     "@webbshop-app/shared": "^1.0.0",
     "axios": "^1.1.3",

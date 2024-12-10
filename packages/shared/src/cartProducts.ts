@@ -4,4 +4,5 @@ export interface cartProduct {
   username?: string;
   antal?: number;
   adress?: string;
+  // message?: string;
 }

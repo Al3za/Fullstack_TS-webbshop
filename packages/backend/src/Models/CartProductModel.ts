@@ -17,12 +17,18 @@ const productModel = model<cartProduct>("modelProduct", productsCart);
 
 export const loadAllCartProd = async (
   nameUser: any
-): Promise<cartProduct[]> => {
+): Promise<cartProduct[] | string> => {
   console.log('load endpoint hit')
   // const loadAll = await productModel.find({ username: nameUser }).cache('10 seconds').exec(); cache works
   // it hold data for 10 secs then when this endpoint hits after 10 secs it ll shows new data if there is some
-  const loadAll = await productModel.find({ username: nameUser }).exec()
-  return loadAll;
+  try {
+    const loadAll = await productModel.find({ username: nameUser }).exec()
+    return loadAll;
+  } catch (error) {
+    console.log('errore db, ', error)
+    return 'internal server errore' //throw new Error('internal server errore')
+  }
+
 };
 
 export const saveCartProduct = async (cartItem: cartProduct) => {

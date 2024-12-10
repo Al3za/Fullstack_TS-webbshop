@@ -14,20 +14,35 @@ export default function LoginPage() {
 
   const navigate = useNavigate();
 
-  const sendToBackend = async (): Promise<void | string> => {
-    console.log(username, password);
-    const send = await axios.post<user_interface>("/login", {
-      username,
-      password,
-    });
-
-    if (typeof send.data === "object") {
-      const token = send.data.token;
+  const LoginUser = async (): Promise<void | string> => {
+    // we promise to return a string or nothing from that post fetch
+    try {
+      const send = await axios.post<string /*user_interface*/>(
+        "/login",
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
+      console.log(send.data, "send.data");
+      // if (send.status === 200) {
+      const token = send.data;
+      //  console.log(token, "token");
       localStorage.setItem("jwt", token);
+      // Cookies.set("MyCookie", "value", { expires: 7 });
       navigate("/products");
+      // }
+    } catch (error) {
+      alert("make sure you wrote right username & password");
     }
 
-    setRes(send.data);
+    // console.log(send.status);
+
+    // if (send.status === 401) {
+    //   console.log(send.data, "hfhfh");
+    // }
+    //  setRes(send.data);
   };
 
   return (
@@ -60,10 +75,7 @@ export default function LoginPage() {
         </button> */}
       </div>
       <div className="buttonToLogin">
-        <button
-          disabled={!(username && password)}
-          onClick={(e) => sendToBackend()}
-        >
+        <button disabled={!(username && password)} onClick={(e) => LoginUser()}>
           login
         </button>{" "}
         {/* <button onClick={(e) => navigate("/")}>back to registerPage</button> */}

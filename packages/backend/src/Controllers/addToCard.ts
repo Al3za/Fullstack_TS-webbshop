@@ -23,9 +23,20 @@ addToCardProduct.post("/", async (req: JwtReq<cartProduct>, res: Response) => {
 
 addToCardProduct.get(
   "/",
-  async (req: JwtReq<cartProduct>, res: Response<cartProduct[]>) => {
-    if (req.jsonToken) {
-      res.send(await loadAllCartProd(req.jsonToken.user));
+  async (req: JwtReq<cartProduct>, res: Response<cartProduct[] | string>) => {
+    if (req.jsonToken) { // req.jsonToken verify you credentials. if you dont have any token (client jwt)
+      // or your jwt expired, you will not have our custom req.jsonToken and then you can't acces the response
+      // const cardProducts = await loadAllCartProd(req.jsonToken.user)
+      try {
+        res.send(await loadAllCartProd(req.jsonToken.user))
+      } catch (error) {
+        console.log('test see 500')
+        return res.sendStatus(500)//
+      }
+      // res.send(await loadAllCartProd(req.jsonToken.user))
+    } else {
+      console.log('test see 401')
+      return res.sendStatus(401)
     }
   }
 );
